@@ -39,11 +39,15 @@ exports.handler = (event, context, callback) => {
             TableName: process.env.tableName
         };
         docClient.scan(params, (err, data) => {
+            let newData = {
+                newMsg: 'Hello ChanMin',
+                realData: data
+            }
             const result = err
                 ? [err]
                 : [err, {
                     statusCode: 200,
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(newData),
                     headers
                 }];
             callback(...result);
